@@ -1,0 +1,18 @@
+version: '3'
+
+volumes:
+  figmaballs_postgres_data:
+    driver: local
+
+services:
+  postgres_for_figmaballs:
+    container_name: figmaballs_postgres_container
+    image: postgres:13.3
+    volumes:
+      - figmaballs_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: figmaballs_db
+      POSTGRES_USER: figmaballs
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
