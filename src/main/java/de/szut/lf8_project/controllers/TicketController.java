@@ -2,8 +2,6 @@ package de.szut.lf8_project.controllers;
 
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController("/tickets")
 @RequestMapping
 public class TicketController {
