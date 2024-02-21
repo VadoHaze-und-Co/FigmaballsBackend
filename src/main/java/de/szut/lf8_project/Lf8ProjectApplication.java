@@ -1,13 +1,13 @@
-package de.figmaballs.figmaballsbackend;
+package de.szut.lf8_project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FigmaballsBackendApplication {
+public class Lf8ProjectApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FigmaballsBackendApplication.class, args);
+        SpringApplication.run(Lf8ProjectApplication.class, args);
     }
 
 }
