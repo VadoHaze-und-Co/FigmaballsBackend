@@ -1,10 +1,10 @@
-package de.figmaballs.figmaballsbackend;
+package de.szut.lf8_project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FigmaballsBackendApplicationTests {
+class Lf8ProjectApplicationTests {
 
     @Test
     void contextLoads() {
