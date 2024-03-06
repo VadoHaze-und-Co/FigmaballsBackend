@@ -25,8 +25,8 @@ public class UserEntity {
     @ManyToMany
     private Set<UserGroupEntity> userGroups;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private TicketEntity ticket;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<TicketEntity> tickets;
 
     @OneToOne(mappedBy = "user")
     private UserSettingEntity userSetting;
