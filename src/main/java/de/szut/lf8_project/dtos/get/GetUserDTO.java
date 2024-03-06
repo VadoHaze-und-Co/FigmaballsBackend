@@ -1,4 +1,4 @@
-package de.szut.lf8_project.dtos;
+package de.szut.lf8_project.dtos.get;
 
 import de.szut.lf8_project.entities.TicketEntity;
 import de.szut.lf8_project.entities.UserGroupEntity;
@@ -17,8 +17,12 @@ public class GetUserDTO {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    /*private List<UserGroupEntity> userGroups;
-    private List<TicketEntity> tickets;
+    private String address;
+    private String postcode;
+    private String city;
+    private boolean admin;
+    private List<GetUserGroupDTO> userGroups;
+    /*private List<TicketEntity> tickets;
     private UserSettingEntity setting;*/
 
 }

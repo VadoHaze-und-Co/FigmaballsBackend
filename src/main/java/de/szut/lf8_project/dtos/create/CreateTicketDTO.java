@@ -1,4 +1,4 @@
-package de.szut.lf8_project.dtos;
+package de.szut.lf8_project.dtos.create;
 
 import de.szut.lf8_project.entities.CategoryEntity;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,6 @@
 package de.szut.lf8_project.services;
 
-import de.szut.lf8_project.entities.TicketEntity;
 import de.szut.lf8_project.entities.UserEntity;
-import de.szut.lf8_project.entities.UserSettingEntity;
-import de.szut.lf8_project.repos.TicketRepository;
 import de.szut.lf8_project.repos.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +32,15 @@ public class UserService {
 
     public UserEntity readById(long id) {
         return this.repository.getOne(id);
+    }
+
+    public void delete(UserEntity entity) {
+        this.repository.delete(entity);
+    }
+
+    public List<UserEntity> readAllAsAdmins() {
+        var admins = this.repository.findAll();
+        admins.removeIf(userEntity -> !userEntity.isAdmin());
+        return admins;
     }
 }

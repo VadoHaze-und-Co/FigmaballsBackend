@@ -22,8 +22,16 @@ public class UserEntity {
 
     private String emailAddress;
 
+    private String Address;
+
+    private String postcode;
+
+    private String city;
+
     @ManyToMany
     private Set<UserGroupEntity> userGroups;
+
+    private boolean admin;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TicketEntity> tickets;

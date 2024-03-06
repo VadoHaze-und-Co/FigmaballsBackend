@@ -1,12 +1,13 @@
 package de.szut.lf8_project.controllers;
 
-import de.szut.lf8_project.dtos.ErrorDTO;
 import de.szut.lf8_project.dtos.create.CreateUserDTO;
+import de.szut.lf8_project.dtos.create.CreateUserGroupDTO;
 import de.szut.lf8_project.dtos.get.GetUserDTO;
+import de.szut.lf8_project.dtos.get.GetUserGroupDTO;
 import de.szut.lf8_project.entities.UserEntity;
-import de.szut.lf8_project.mappers.UserMapper;
+import de.szut.lf8_project.entities.UserGroupEntity;
+import de.szut.lf8_project.mappers.UserGroupMapper;
 import de.szut.lf8_project.services.UserGroupService;
-import de.szut.lf8_project.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,44 +19,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("v3/api/figmaballs/users")
-public class UserController {
+@RequestMapping("v3/api/figmaballs/usersGroups")
+public class UserGroupController {
 
-    private final UserService service;
-    private final UserGroupService userGroupService;
-    private final UserMapper mapper;
 
-    public UserController(UserService service, UserMapper mapper, UserGroupService userGroupService) {
+    private final UserGroupService service;
+    private final UserGroupMapper mapper;
+
+    public UserGroupController(UserGroupService service, UserGroupMapper mapper) {
         this.service = service;
-        this.userGroupService = userGroupService;
         this.mapper = mapper;
     }
 
-    @Operation(summary = "creates a new user")
+    @Operation(summary = "creates a new user group")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "created user",
+            @ApiResponse(responseCode = "201", description = "created user group",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = GetUserDTO.class))}),
             @ApiResponse(responseCode = "400", description = "invalid JSON posted",
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized",
-                    content = @Content),
-            @ApiResponse(responseCode = "422", description = "no user group exists")})
+                    content = @Content)})
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody @Valid CreateUserDTO dto) {
-        var groupEntities = this.userGroupService.readAll();
-        if (groupEntities.stream().findAny().isEmpty()) {
-            return new ResponseEntity<>(new ErrorDTO("ERROR " + HttpStatus.UNPROCESSABLE_ENTITY.value(),"there is no user groups that exist, please create it first"), HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-        UserEntity userEntity = this.mapper.userCreateDtoToEntity(dto);
-        userEntity = this.service.create(userEntity);
-        return new ResponseEntity<>(this.mapper.entityToGetDto(userEntity), HttpStatus.CREATED);
+    public ResponseEntity<GetUserGroupDTO> create(@RequestBody @Valid CreateUserGroupDTO dto) {
+        UserGroupEntity entity = this.mapper.userGroupCreateDtoToEntity(dto);
+        entity = this.service.create(entity);
+        return new ResponseEntity<>(this.mapper.entityToGetDto(entity), HttpStatus.CREATED);
     }
 
     @Operation(summary = "update an user")
@@ -68,24 +61,24 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @PutMapping("/update/{id}")
-    public ResponseEntity<GetUserDTO> update(
+    public ResponseEntity<GetUserGroupDTO> update(
             @Parameter(description = "user id", required = true) @PathVariable long id,
-            @RequestBody @Valid CreateUserDTO createUserDTO) {
-        UserEntity updateEntity = mapper.userCreateDtoToEntity(createUserDTO);
+            @RequestBody @Valid CreateUserGroupDTO dto) {
+        UserGroupEntity updateEntity = mapper.userGroupCreateDtoToEntity(dto);
         updateEntity.setId(id);
         updateEntity = this.service.update(updateEntity);
         return new ResponseEntity<>(this.mapper.entityToGetDto(updateEntity), HttpStatus.OK);
     }
 
-    @Operation(summary = "delivers a list of users")
+    @Operation(summary = "delivers a list of user groups")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "list of users",
+            @ApiResponse(responseCode = "200", description = "list of user groups",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = GetUserDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @GetMapping("/getAll")
-    public ResponseEntity<List<GetUserDTO>> getAll() {
+    public ResponseEntity<List<GetUserGroupDTO>> getAll() {
         return new ResponseEntity<>(this.service
                 .readAll()
                 .stream()
@@ -93,48 +86,32 @@ public class UserController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "delivers a user by ID")
+    @Operation(summary = "delivers a user group by ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "user by ID",
+            @ApiResponse(responseCode = "200", description = "user group by ID",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = GetUserDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @GetMapping("/get/{id}")
-    public ResponseEntity<GetUserDTO> getById(
-            @Parameter(description = "ticket id", required = true) @PathVariable long id) {
+    public ResponseEntity<GetUserGroupDTO> getById(
+            @Parameter(description = "user group id", required = true) @PathVariable long id) {
         return new ResponseEntity<>(this.mapper.entityToGetDto(this.service.readById(id)), HttpStatus.OK);
     }
 
-    @Operation(summary = "delivers a list of users as admins")
+    @Operation(summary = "deletes a user group by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "users as Admins",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GetUserDTO.class))}),
-            @ApiResponse(responseCode = "401", description = "not authorized",
-                    content = @Content)})
-    @GetMapping("/getAllAsAdmins")
-    public ResponseEntity<List<GetUserDTO>> getAllAsAdmins() {
-        return new ResponseEntity<>(this.service
-                .readAllAsAdmins()
-                .stream()
-                .map(e -> this.mapper.entityToGetDto(e))
-                .collect(Collectors.toList()), HttpStatus.OK);
-    }
-
-    @Operation(summary = "deletes a user by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "delete successful"),
+            @ApiResponse(responseCode = "200", description = "delete successful"),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found",
                     content = @Content)})
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public ResponseEntity<GetUserDTO> deleteById(@PathVariable long id) {
+    public ResponseEntity<GetUserGroupDTO> deleteById(@PathVariable long id) {
         var entity = this.service.readById(id);
         this.service.delete(entity);
-        GetUserDTO getProjectDTO = mapper.entityToGetDto(entity);
-        return new ResponseEntity<>(getProjectDTO, HttpStatus.OK);
+        GetUserGroupDTO getUserGroupDTO = mapper.entityToGetDto(entity);
+        return new ResponseEntity<>(getUserGroupDTO, HttpStatus.OK);
     }
 }

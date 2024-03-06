@@ -1,7 +1,7 @@
 package de.szut.lf8_project.controllers;
 
-import de.szut.lf8_project.dtos.CreateTicketDTO;
-import de.szut.lf8_project.dtos.GetTicketDTO;
+import de.szut.lf8_project.dtos.create.CreateTicketDTO;
+import de.szut.lf8_project.dtos.get.GetTicketDTO;
 import de.szut.lf8_project.entities.TicketEntity;
 import de.szut.lf8_project.mappers.TicketMapper;
 import de.szut.lf8_project.services.TicketService;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @RestController()

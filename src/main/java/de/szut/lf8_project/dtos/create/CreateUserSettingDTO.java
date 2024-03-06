@@ -1,13 +1,12 @@
-package de.szut.lf8_project.dtos;
+package de.szut.lf8_project.dtos.create;
 
-import de.szut.lf8_project.entities.SettingEntity;
-import de.szut.lf8_project.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.OneToOne;
-
+@AllArgsConstructor
+@Getter
+@Setter
 public class CreateUserSettingDTO {
     private long id;
     private long settingId;

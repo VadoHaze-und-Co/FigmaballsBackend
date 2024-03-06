@@ -1,7 +1,7 @@
 package de.szut.lf8_project.mappers;
 
-import de.szut.lf8_project.dtos.CreateTicketDTO;
-import de.szut.lf8_project.dtos.GetTicketDTO;
+import de.szut.lf8_project.dtos.create.CreateTicketDTO;
+import de.szut.lf8_project.dtos.get.GetTicketDTO;
 import de.szut.lf8_project.entities.TicketEntity;
 import org.springframework.stereotype.Service;
 
