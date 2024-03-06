@@ -2,9 +2,12 @@ package de.szut.lf8_project.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +24,10 @@ public class TicketEntity {
     private String description;
 
     private long status;
+
+    private LocalDateTime creationDate;
+
+    private LocalDateTime finishDate;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AppendEntity> appends = new ArrayList<>();
