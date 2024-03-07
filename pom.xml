@@ -8,11 +8,11 @@
         <version>2.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>de.szut</groupId>
-    <artifactId>lf8_project_starter</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
-    <name>lf8_project_starter</name>
-    <description>lf8_project_starter</description>
+    <groupId>com.figmaballs</groupId>
+    <artifactId>figmaballs_backend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>figmaballs_backend</name>
+    <description>backend</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
