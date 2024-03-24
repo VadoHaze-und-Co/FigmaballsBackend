@@ -1,8 +1,8 @@
 package com.figmaballs.figmaballs_backend.services;
 
 import com.figmaballs.figmaballs_backend.dtos.get.GetUserGroupDTO;
-import com.figmaballs.figmaballs_backend.mappers.UserGroupMapper;
 import com.figmaballs.figmaballs_backend.entities.UserGroupEntity;
+import com.figmaballs.figmaballs_backend.mappers.UserGroupMapper;
 import com.figmaballs.figmaballs_backend.repos.UserGroupRepository;
 import org.springframework.stereotype.Service;
 

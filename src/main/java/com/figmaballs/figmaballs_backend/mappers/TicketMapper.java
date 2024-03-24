@@ -11,8 +11,9 @@ public class TicketMapper {
     public TicketEntity ticketCreateDtoToEntity(CreateTicketDTO dto) {
         var entity = new TicketEntity();
         entity.setId(0);
+        entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
-        entity.setStatus(dto.getStatus());
+        entity.setStatus(0);
         entity.setCreationDate(dto.getCreationDate());
         entity.setFinishDate(dto.getFinishDate());
         entity.setAppends(null);
@@ -24,6 +25,7 @@ public class TicketMapper {
     public GetTicketDTO entityToGetDto(TicketEntity entity) {
         return new GetTicketDTO(
                 entity.getId(),
+                entity.getTitle(),
                 entity.getDescription(),
                 entity.getStatus(),
                 entity.getCreationDate(),

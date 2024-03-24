@@ -1,5 +1,6 @@
 package com.figmaballs.figmaballs_backend.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_groups")
 public class UserGroupEntity {
 

@@ -14,6 +14,8 @@ import java.util.List;
 @Setter
 public class CreateTicketDTO {
 
+    @NotBlank(message = "Title must not be blank")
+    private String title;
     @NotBlank(message = "Description must not be blank")
     private String description;
     @NotNull(message = "The ticket needs a status, by default 0")

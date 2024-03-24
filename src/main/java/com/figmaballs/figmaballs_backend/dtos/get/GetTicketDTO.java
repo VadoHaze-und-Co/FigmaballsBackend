@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class GetTicketDTO {
     private long id;
+    private String title;
     private String description;
     private long status;
     private LocalDateTime creationDate;

@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController()
-@RequestMapping("v3/api/figmaballs/tickets")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/tickets")
 public class TicketController {
 
     private final TicketService service;
@@ -40,7 +41,7 @@ public class TicketController {
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<GetTicketDTO> create(@RequestBody @Valid CreateTicketDTO dto) {
         TicketEntity ticketEntity = this.mapper.ticketCreateDtoToEntity(dto);
         ticketEntity = this.service.create(ticketEntity);
@@ -56,7 +57,7 @@ public class TicketController {
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<GetTicketDTO> update(
             @Parameter(description = "ticket id", required = true) @PathVariable long id,
             @RequestBody @Valid CreateTicketDTO createTicketDTO) {
@@ -73,7 +74,7 @@ public class TicketController {
                             schema = @Schema(implementation = GetTicketDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @GetMapping("/getAll")
+    @GetMapping("")
     public ResponseEntity<List<GetTicketDTO>> getAll() {
         return new ResponseEntity<>(this.service
                 .readAll()
@@ -89,7 +90,7 @@ public class TicketController {
                             schema = @Schema(implementation = GetTicketDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GetTicketDTO> getById(
             @Parameter(description = "ticket id", required = true) @PathVariable long id) {
         return new ResponseEntity<>(this.mapper.entityToGetDto(this.service.readById(id)), HttpStatus.OK);
