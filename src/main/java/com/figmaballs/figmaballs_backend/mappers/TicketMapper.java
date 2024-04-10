@@ -9,8 +9,10 @@ import com.figmaballs.figmaballs_backend.services.AppendService;
 import com.figmaballs.figmaballs_backend.services.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
-public class TicketMapper {
+public class TicketMapper extends Mapper {
 
     public AppendService appendService;
     public CategoryService categoryService;
@@ -28,8 +30,8 @@ public class TicketMapper {
         entity.setStatus(0);
 //        entity.setCreationDate(dto.getCreationDate());
 //        entity.setFinishDate(dto.getFinishDate());
-        entity.setAppends(dto.getAppends().stream().map(e -> appendService.readById(e)).toList());
-        entity.setCategories(dto.getCategories().stream().map(e -> categoryService.readById(e)).toList());
+        entity.setAppendIds(idsToString(dto.getAppends()));
+        entity.setCategoryIds(idsToString(dto.getCategories()));
 
         return entity;
     }
@@ -40,8 +42,8 @@ public class TicketMapper {
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getStatus(),
-                entity.getAppends().stream().map(AppendEntity::getId).toList(),
-                entity.getCategories().stream().map(CategoryEntity::getId).toList(),
+                stringToIds(entity.getAppendIds()),
+                stringToIds(entity.getCategoryIds()),
                 entity.getCreationDate(),
                 entity.getFinishDate()
         );

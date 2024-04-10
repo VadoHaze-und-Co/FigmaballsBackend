@@ -6,7 +6,7 @@ import com.figmaballs.figmaballs_backend.entities.CategoryEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryMapper {
+public class CategoryMapper extends Mapper {
 
     public CategoryEntity createDtoToEntity(CreateCategoryDTO dto) {
         CategoryEntity entity = new CategoryEntity();

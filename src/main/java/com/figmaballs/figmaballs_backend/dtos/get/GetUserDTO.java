@@ -19,7 +19,7 @@ public class GetUserDTO {
     private String postcode;
     private String city;
     private boolean admin;
-    private List<GetUserGroupDTO> userGroups;
+    private List<Long> userGroups;
     //private List<TicketEntity> tickets;
     //private GetSettingDTO setting;
 

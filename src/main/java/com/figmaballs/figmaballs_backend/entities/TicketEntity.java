@@ -31,11 +31,9 @@ public class TicketEntity {
 
     private LocalDateTime finishDate;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AppendEntity> appends = new ArrayList<>();
+    private String appendIds;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CategoryEntity> categories = new ArrayList<>();
+    private String categoryIds;
 
 //    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<UserEntity> editors = new ArrayList<>();

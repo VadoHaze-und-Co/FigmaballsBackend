@@ -18,7 +18,4 @@ public class StatusEntity {
     private long id;
 
     private String name;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private TicketEntity ticket;
 }

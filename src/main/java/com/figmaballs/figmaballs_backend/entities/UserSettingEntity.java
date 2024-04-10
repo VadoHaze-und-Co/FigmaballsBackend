@@ -17,8 +17,7 @@ public class UserSettingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
-    private SettingEntity setting;
-    @OneToOne
-    private UserEntity user;
+    private String settingId;
+
+    private String userId;
 }

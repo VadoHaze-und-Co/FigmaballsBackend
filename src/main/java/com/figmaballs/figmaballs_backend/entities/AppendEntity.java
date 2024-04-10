@@ -22,7 +22,4 @@ public class AppendEntity {
     private String fileType;
 
     private String content;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private TicketEntity ticket;
 }
