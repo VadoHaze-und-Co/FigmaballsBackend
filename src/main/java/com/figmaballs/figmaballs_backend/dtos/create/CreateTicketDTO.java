@@ -24,4 +24,5 @@ public class CreateTicketDTO {
 //    private LocalDateTime finishDate;
     private List<Long> categories;
 
+    private List<Long> appends;
 }
