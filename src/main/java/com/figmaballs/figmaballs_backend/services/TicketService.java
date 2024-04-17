@@ -23,6 +23,7 @@ public class TicketService {
         TicketEntity entityToUpdate = this.readById(newEntity.getId());
         entityToUpdate.setDescription(newEntity.getDescription());
         entityToUpdate.setStatus(newEntity.getStatus());
+        entityToUpdate.setPriority(newEntity.getPriority());
         entityToUpdate.setFinishDate(newEntity.getFinishDate());
         entityToUpdate.setAppendIds(newEntity.getAppendIds());
         entityToUpdate.setCategoryIds(newEntity.getCategoryIds());
