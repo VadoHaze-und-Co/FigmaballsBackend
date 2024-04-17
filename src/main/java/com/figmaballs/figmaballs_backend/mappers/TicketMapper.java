@@ -2,8 +2,6 @@ package com.figmaballs.figmaballs_backend.mappers;
 
 import com.figmaballs.figmaballs_backend.dtos.create.CreateTicketDTO;
 import com.figmaballs.figmaballs_backend.dtos.get.GetTicketDTO;
-import com.figmaballs.figmaballs_backend.entities.AppendEntity;
-import com.figmaballs.figmaballs_backend.entities.CategoryEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.services.AppendService;
 import com.figmaballs.figmaballs_backend.services.CategoryService;
@@ -28,6 +26,7 @@ public class TicketMapper extends Mapper {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setStatus(dto.getStatus());
+        entity.setPriority(dto.getPriority());
         entity.setCreationDate(dto.getCreationDate());
         entity.setFinishDate(dto.getFinishDate());
         entity.setAppendIds(idsToString(dto.getAppends()));
@@ -42,6 +41,7 @@ public class TicketMapper extends Mapper {
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getStatus(),
+                entity.getPriority(),
                 stringToIds(entity.getAppendIds()),
                 stringToIds(entity.getCategoryIds()),
                 entity.getCreationDate(),
