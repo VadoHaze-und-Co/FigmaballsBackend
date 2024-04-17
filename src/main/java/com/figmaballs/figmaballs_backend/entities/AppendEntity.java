@@ -21,6 +21,6 @@ public class AppendEntity {
 
     private String fileType;
 
-    @Column(length = Integer.MAX_VALUE)
+    @Column(columnDefinition = "varchar(10485760)")
     private String content;
 }
