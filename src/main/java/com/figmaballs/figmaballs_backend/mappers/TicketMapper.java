@@ -28,8 +28,8 @@ public class TicketMapper extends Mapper {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setStatus(0);
-//        entity.setCreationDate(dto.getCreationDate());
-//        entity.setFinishDate(dto.getFinishDate());
+        entity.setCreationDate(dto.getCreationDate());
+        entity.setFinishDate(dto.getFinishDate());
         entity.setAppendIds(idsToString(dto.getAppends()));
         entity.setCategoryIds(idsToString(dto.getCategories()));
 

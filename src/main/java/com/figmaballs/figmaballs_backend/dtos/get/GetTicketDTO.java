@@ -18,6 +18,6 @@ public class GetTicketDTO {
     private long status;
     private List<Long> appends;
     private List<Long> categories;
-    private LocalDateTime creationDate;
-    private LocalDateTime finishDate;
+    private long creationDate;
+    private long finishDate;
 }

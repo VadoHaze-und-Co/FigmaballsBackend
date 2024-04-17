@@ -21,5 +21,6 @@ public class AppendEntity {
 
     private String fileType;
 
+    @Column(length = Integer.MAX_VALUE)
     private String content;
 }

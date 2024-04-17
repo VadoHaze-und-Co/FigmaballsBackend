@@ -27,9 +27,10 @@ public class TicketEntity {
 
     private long status;
 
-    private LocalDateTime creationDate;
+    private long creationDate;
 
-    private LocalDateTime finishDate;
+    private long finishDate;
+
 
     private String appendIds;
 
