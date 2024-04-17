@@ -29,6 +29,8 @@ public class TicketEntity {
 
     private long status;
 
+    private int priority;
+
     private long creationDate;
 
     private long finishDate;

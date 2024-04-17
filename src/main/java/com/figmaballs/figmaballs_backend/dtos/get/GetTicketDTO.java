@@ -16,6 +16,7 @@ public class GetTicketDTO {
     private String title;
     private String description;
     private long status;
+    private int priority;
     private List<Long> appends;
     private List<Long> categories;
     private long creationDate;
