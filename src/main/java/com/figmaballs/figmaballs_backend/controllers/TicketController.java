@@ -79,7 +79,7 @@ public class TicketController {
         return new ResponseEntity<>(this.service
                 .readAll()
                 .stream()
-                .map(e -> this.mapper.entityToGetDto(e))
+                .map(this.mapper::entityToGetDto)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 

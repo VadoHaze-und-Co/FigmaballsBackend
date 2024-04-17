@@ -13,7 +13,7 @@ public class TicketMapper {
         entity.setId(0);
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
-        entity.setStatus(0);
+        entity.setStatus(dto.getStatus());
 //        entity.setCreationDate(dto.getCreationDate());
 //        entity.setFinishDate(dto.getFinishDate());
         entity.setAppends(null);
