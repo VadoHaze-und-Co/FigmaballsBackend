@@ -32,14 +32,7 @@ public class UserEntity {
 
     private String city;
 
-    @ManyToMany
-    private Set<UserGroupEntity> userGroups;
+    private String userGroupIds;
 
     private boolean admin;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<TicketEntity> tickets;
-
-    @OneToOne(mappedBy = "user")
-    private UserSettingEntity userSetting;
 }

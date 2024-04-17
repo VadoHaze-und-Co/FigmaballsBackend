@@ -18,10 +18,4 @@ public class CategoryEntity {
     private long id;
 
     private String name;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private TicketEntity ticket;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private UserGroupEntity userGroup;
 }

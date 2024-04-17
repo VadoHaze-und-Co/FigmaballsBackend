@@ -17,7 +17,4 @@ public class PermissionEntity {
     private String name;
 
     private int value;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private UserGroupEntity userGroup;
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -15,6 +16,8 @@ public class GetTicketDTO {
     private String title;
     private String description;
     private long status;
-    private LocalDateTime creationDate;
-    private LocalDateTime finishDate;
+    private List<Long> appends;
+    private List<Long> categories;
+    private long creationDate;
+    private long finishDate;
 }

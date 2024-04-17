@@ -24,8 +24,8 @@ public class TicketService {
         entityToUpdate.setDescription(newEntity.getDescription());
         entityToUpdate.setStatus(newEntity.getStatus());
         entityToUpdate.setFinishDate(newEntity.getFinishDate());
-        entityToUpdate.setAppends(newEntity.getAppends());
-        entityToUpdate.setCategories(newEntity.getCategories());
+        entityToUpdate.setAppendIds(newEntity.getAppendIds());
+        entityToUpdate.setCategoryIds(newEntity.getCategoryIds());
         return this.repository.save(entityToUpdate);
     }
 

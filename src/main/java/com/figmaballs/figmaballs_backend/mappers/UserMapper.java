@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserMapper {
+public class UserMapper extends Mapper {
 
     private final UserService service;
     private final UserGroupService userGroupService;
@@ -35,25 +35,13 @@ public class UserMapper {
         entity.setAddress(dto.getAddress());
         entity.setPostcode(dto.getPostcode());
         entity.setCity(dto.getCity());
-        Set<UserGroupEntity> groupEntities = new HashSet<>();
-        for (var groupId : dto.getUserGroups()) {
-            var groupEntity = this.userGroupService.readById(groupId);
-            groupEntities.add(groupEntity);
-        }
-        entity.setUserGroups(groupEntities);
-        entity.setUserSetting(null);
-        entity.setTickets(null);
+        entity.setUserGroupIds(idsToString(dto.getUserGroups()));
         entity.setAdmin(dto.isAdmin());
 
         return entity;
     }
 
     public GetUserDTO entityToGetDto(UserEntity entity) {
-        List<GetUserGroupDTO> groups = new ArrayList<>();
-        for (UserGroupEntity userGroupEntity : entity.getUserGroups()) {
-            GetUserGroupDTO userGroupDTO = userGroupService.readByIdDTO(userGroupEntity.getId());
-            groups.add(userGroupDTO);
-        }
         return new GetUserDTO(
                 entity.getId(),
                 entity.getUserName(),
@@ -64,7 +52,7 @@ public class UserMapper {
                 entity.getPostcode(),
                 entity.getCity(),
                 entity.isAdmin(),
-                groups
+                stringToIds(entity.getUserGroupIds())
                 /*entity.getTickets().stream().toList(),*/
                 /*new GetSettingDTO(
                         entity.getUserSetting().getSetting().getId(),

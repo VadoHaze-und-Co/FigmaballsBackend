@@ -20,8 +20,8 @@ public class CreateTicketDTO {
     private String description;
     @NotNull(message = "The ticket needs a status, by default 0")
     private long status;
-//    private LocalDateTime creationDate;
-//    private LocalDateTime finishDate;
+    private long creationDate;
+    private long finishDate;
     private List<Long> categories;
-
+    private List<Long> appends;
 }
