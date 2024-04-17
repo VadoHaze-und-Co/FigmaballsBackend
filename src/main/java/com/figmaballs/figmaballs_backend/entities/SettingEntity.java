@@ -18,7 +18,4 @@ public class SettingEntity {
     private long id;
 
     private String description;
-
-    @OneToOne(mappedBy = "setting")
-    private UserSettingEntity userSetting;
 }

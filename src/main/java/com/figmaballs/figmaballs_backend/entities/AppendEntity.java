@@ -10,19 +10,17 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "appends")
+@Table(name = "append")
 public class AppendEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String fileName;
 
     private String fileType;
 
+    @Column(length = Integer.MAX_VALUE)
     private String content;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private TicketEntity ticket;
 }

@@ -6,7 +6,7 @@ import com.figmaballs.figmaballs_backend.entities.UserGroupEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserGroupMapper {
+public class UserGroupMapper extends Mapper {
 
     public UserGroupEntity userGroupCreateDtoToEntity(CreateUserGroupDTO dto) {
         var entity = new UserGroupEntity();

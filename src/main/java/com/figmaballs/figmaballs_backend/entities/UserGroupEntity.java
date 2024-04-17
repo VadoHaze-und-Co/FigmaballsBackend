@@ -22,12 +22,7 @@ public class UserGroupEntity {
 
     private String displayName;
 
-    @ManyToMany(mappedBy = "userGroups", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserEntity> users;
+    private String categoryIds;
 
-    @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<CategoryEntity> categories;
-
-    @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<PermissionEntity> permissions;
+    private String permissionIds;
 }
