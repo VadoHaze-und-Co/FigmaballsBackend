@@ -12,9 +12,19 @@ import java.util.List;
 public class AppendService {
 
     private final AppendRepository repository;
+    private final String CONTENT_ONE = "Joe Mama use Figmaballs :3";
 
     public AppendService(AppendRepository repository) {
         this.repository = repository;
+        loadAppends();
+    }
+
+    private void loadAppends() {
+        AppendEntity entity = new AppendEntity();
+        entity.setFileName("asas");
+        entity.setFileType("txt");
+        entity.setContent(CONTENT_ONE);
+        this.repository.save(entity);
     }
 
     public AppendEntity create(AppendEntity entity) {
