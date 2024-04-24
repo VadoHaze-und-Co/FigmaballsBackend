@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("v3/api/figmaballs/usersGroups")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("users/groups")
 public class UserGroupController {
 
 
@@ -42,7 +43,7 @@ public class UserGroupController {
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<GetUserGroupDTO> create(@RequestBody @Valid CreateUserGroupDTO dto) {
         UserGroupEntity entity = this.mapper.userGroupCreateDtoToEntity(dto);
         entity = this.service.create(entity);
@@ -58,7 +59,7 @@ public class UserGroupController {
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<GetUserGroupDTO> update(
             @Parameter(description = "user id", required = true) @PathVariable long id,
             @RequestBody @Valid CreateUserGroupDTO dto) {
@@ -75,7 +76,7 @@ public class UserGroupController {
                             schema = @Schema(implementation = GetUserDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @GetMapping("/getAll")
+    @GetMapping("")
     public ResponseEntity<List<GetUserGroupDTO>> getAll() {
         return new ResponseEntity<>(this.service
                 .readAll()
@@ -91,7 +92,7 @@ public class UserGroupController {
                             schema = @Schema(implementation = GetUserDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GetUserGroupDTO> getById(
             @Parameter(description = "user group id", required = true) @PathVariable long id) {
         return new ResponseEntity<>(this.mapper.entityToGetDto(this.service.readById(id)), HttpStatus.OK);
@@ -104,7 +105,7 @@ public class UserGroupController {
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "resource not found",
                     content = @Content)})
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public ResponseEntity<GetUserGroupDTO> deleteById(@PathVariable long id) {
         var entity = this.service.readById(id);

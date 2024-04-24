@@ -35,13 +35,12 @@ public class TicketEntity {
 
     private long finishDate;
 
-
     private String appendIds;
 
     private String categoryIds;
 
-//    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<UserEntity> editors = new ArrayList<>();
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AssignmentEntity> assignments = new ArrayList<>();
 
 //    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private CategoryEntity creator;
