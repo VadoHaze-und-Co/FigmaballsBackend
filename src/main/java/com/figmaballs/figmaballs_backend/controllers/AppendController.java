@@ -72,11 +72,11 @@ public class AppendController {
         return new ResponseEntity<>(this.mapper.entityToGetDto(updateEntity), HttpStatus.OK);
     }
 
-    @Operation(summary = "delivers a list of tickets")
+    @Operation(summary = "delivers a list of append")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "list of tickets",
+            @ApiResponse(responseCode = "200", description = "list of append",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GetCategoryDTO.class))}),
+                            schema = @Schema(implementation = GetAppendDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @GetMapping("")

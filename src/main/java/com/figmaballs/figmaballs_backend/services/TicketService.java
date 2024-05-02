@@ -1,7 +1,9 @@
 package com.figmaballs.figmaballs_backend.services;
 
+import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
+import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import com.figmaballs.figmaballs_backend.repos.TicketRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,11 @@ import java.util.Random;
 public class TicketService {
 
     private final TicketRepository repository;
+    private final TicketCommentRepository commentRepository;
 
-    public TicketService(TicketRepository repository) {
+    public TicketService(TicketRepository repository, TicketCommentRepository commentRepository) {
         this.repository = repository;
+        this.commentRepository = commentRepository;
         loadTickets();
     }
 
@@ -40,6 +44,14 @@ public class TicketService {
                 entity.setAppendIds("");
             }
             entity.setCategoryIds(random.nextInt(20) + " " + random.nextInt(20));
+            if (i == 1) {
+                List<TicketCommentEntity> comments = new ArrayList<>();
+                comments.add(this.commentRepository.getOne(1L));
+                comments.add(this.commentRepository.getOne(2L));
+                comments.add(this.commentRepository.getOne(3L));
+                comments.add(this.commentRepository.getOne(4L));
+                entity.setComments(comments);
+            }
             this.repository.save(entity);
         }
     }

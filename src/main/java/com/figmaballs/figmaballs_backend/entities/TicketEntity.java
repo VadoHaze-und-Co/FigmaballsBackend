@@ -36,8 +36,8 @@ public class TicketEntity {
 
     private String categoryIds;
 
-    //@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //private List<AssignmentEntity> assignments = new ArrayList<>();
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AssignmentEntity> assignments = new ArrayList<>();
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TicketCommentEntity> comments = new ArrayList<>();
