@@ -66,4 +66,8 @@ public class TicketService {
     public TicketEntity readById(long id) {
         return this.repository.getOne(id);
     }
+
+    public void deleteById(long id) {
+        this.repository.deleteById(id);
+    }
 }
