@@ -33,7 +33,7 @@ public class TicketService {
             entity.setStatus(status[i]);
             entity.setPriority(priority[i]);
             entity.setCreationDate(creationDate[i]);
-            entity.setAssignments(new ArrayList<>());
+            //entity.setAssignments(new ArrayList<>());
             if (i == 1 || i == 3) {
                 entity.setAppendIds("1");
             } else {

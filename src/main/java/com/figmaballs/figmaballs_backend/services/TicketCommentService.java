@@ -1,7 +1,6 @@
 package com.figmaballs.figmaballs_backend.services;
 
 import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
-import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,13 @@ public class TicketCommentService {
 
     public TicketCommentService(TicketCommentRepository repository) {
         this.repository = repository;
+        loadComments();
     }
+
+    private void loadComments() {
+
+    }
+
 
     public TicketCommentEntity create(TicketCommentEntity entity) {
         return this.repository.save(entity);
