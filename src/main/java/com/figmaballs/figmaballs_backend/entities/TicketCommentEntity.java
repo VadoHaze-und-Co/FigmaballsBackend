@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ticket-comments")
+@Table(name = "ticket_comments")
 public class TicketCommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

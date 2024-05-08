@@ -62,7 +62,6 @@ public class UserService {
             }
             this.repository.save(user);
         }
-
     }
 
     public UserEntity create(UserEntity entity) {

@@ -44,6 +44,7 @@ public class TicketService {
                 entity.setAppendIds("");
             }
             entity.setCategoryIds(random.nextInt(20) + " " + random.nextInt(20));
+            entity.setComments(new ArrayList<>());
             if (i == 1) {
                 List<TicketCommentEntity> comments = new ArrayList<>();
                 comments.add(this.commentRepository.getOne(1L));
