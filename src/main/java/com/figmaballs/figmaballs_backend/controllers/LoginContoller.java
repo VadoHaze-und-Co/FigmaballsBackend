@@ -1,5 +1,6 @@
 package com.figmaballs.figmaballs_backend.controllers;
 
+import com.figmaballs.figmaballs_backend.dtos.LoginDTO;
 import com.figmaballs.figmaballs_backend.dtos.create.CreateTicketDTO;
 import com.figmaballs.figmaballs_backend.dtos.get.GetTicketDTO;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController()
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/tickets")
+@RequestMapping("/login")
 public class LoginContoller {
 
 
@@ -33,10 +34,8 @@ public class LoginContoller {
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized")})
-    @PostMapping("/login")
-    public ResponseEntity<String> login(
-            @Parameter(description = "username", required = true) @PathVariable String username,
-            @Parameter(description = "password", required = true) @PathVariable Long password) {
+    @PostMapping("")
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO dto) {
         return new ResponseEntity<>("Login richtig", HttpStatus.CREATED);
 
     }
