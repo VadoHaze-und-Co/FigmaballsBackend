@@ -18,7 +18,7 @@ public class TicketCommentService {
         this.repository = repository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
-        loadComments();
+        //loadComments();
     }
 
     private void loadComments() {
@@ -74,5 +74,9 @@ public class TicketCommentService {
         List<TicketCommentEntity> result = this.repository.findAll();
         result.removeIf(t -> t.getTicket().getId() != ticketId);
         return result;
+    }
+
+    public void deleteById(long id) {
+        this.repository.deleteById(id);
     }
 }

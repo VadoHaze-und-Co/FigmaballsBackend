@@ -14,4 +14,5 @@ public class GetTicketCommentDTO {
     private Long userId;
     private String comment;
     private Long commentDate;
+    private Boolean edited;
 }

@@ -21,7 +21,7 @@ public class UserService {
         this.repository = repository;
         this.settingRepository = settingRepository;
         this.commentRepository = commentRepository;
-        loadUsers();
+        //loadUsers();
     }
 
     public void loadUsers() {

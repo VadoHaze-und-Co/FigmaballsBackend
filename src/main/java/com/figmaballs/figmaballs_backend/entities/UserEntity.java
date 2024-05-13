@@ -28,7 +28,7 @@ public class UserEntity {
 
     private String emailAddress;
 
-    private String Address;
+    private String address;
 
     private String postcode;
 

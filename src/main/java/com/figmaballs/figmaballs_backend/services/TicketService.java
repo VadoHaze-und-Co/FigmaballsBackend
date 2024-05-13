@@ -20,7 +20,7 @@ public class TicketService {
     public TicketService(TicketRepository repository, TicketCommentRepository commentRepository) {
         this.repository = repository;
         this.commentRepository = commentRepository;
-        loadTickets();
+        //loadTickets();
     }
 
     private void loadTickets() {

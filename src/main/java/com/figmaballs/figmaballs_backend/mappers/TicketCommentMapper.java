@@ -27,6 +27,7 @@ public class TicketCommentMapper {
         entity.setUser(this.userService.readById(dto.getUserId()));
         entity.setComment(dto.getComment());
         entity.setCommentDate(dto.getCommentDate());
+        entity.setEdited(dto.getEdited());
         return entity;
     }
 
@@ -36,7 +37,8 @@ public class TicketCommentMapper {
                 entity.getTicket().getId(),
                 entity.getUser().getId(),
                 entity.getComment(),
-                entity.getCommentDate()
+                entity.getCommentDate(),
+                entity.getEdited()
         );
     }
 }

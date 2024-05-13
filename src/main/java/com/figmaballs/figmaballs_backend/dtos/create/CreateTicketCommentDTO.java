@@ -18,4 +18,5 @@ public class CreateTicketCommentDTO {
     private String comment;
     @NotBlank
     private Long commentDate;
+    private Boolean edited;
 }

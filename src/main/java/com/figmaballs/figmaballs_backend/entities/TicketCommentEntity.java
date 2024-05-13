@@ -21,5 +21,6 @@ public class TicketCommentEntity {
     private UserEntity user;
     private String comment;
     private Long commentDate;
+    private Boolean edited;
 
 }
