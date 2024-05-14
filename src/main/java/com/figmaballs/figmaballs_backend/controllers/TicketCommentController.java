@@ -83,7 +83,28 @@ public class TicketCommentController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "delivers a ticket by ID")
+    /*@Operation(summary = "delivers a list of tickets by ticket ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "list of comments",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetTicketCommentDTO.class))}),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content)})
+    @GetMapping("/ticket/{id}")
+    public ResponseEntity<List<GetTicketCommentDTO>> getAllByTicketId(
+            @Parameter(description = "ticket id", required = true) @PathVariable long id) {
+        List<TicketCommentEntity> l = this.service.readAll();
+        if (l.removeIf(entity -> entity.getTicket().getId() != id)) {
+            return new ResponseEntity<>(l
+                    .stream()
+                    .map(this.mapper::entityToGetDTO)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
+
+    @Operation(summary = "delivers a comment by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "comment by ID",
                     content = {@Content(mediaType = "application/json",
@@ -92,22 +113,23 @@ public class TicketCommentController {
                     content = @Content)})
     @GetMapping("/{id}")
     public ResponseEntity<GetTicketCommentDTO> getById(
-            @Parameter(description = "ticket id", required = true) @PathVariable long id) {
+            @Parameter(description = "comment id", required = true) @PathVariable long id) {
         return new ResponseEntity<>(this.mapper.entityToGetDTO(this.service.readById(id)), HttpStatus.OK);
     }
 
-    /*@Operation(summary = "deletes an comment")
+    @Operation(summary = "deletes a comment by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "comment deleted",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GetTicketCommentDTO.class))}),
+            @ApiResponse(responseCode = "200", description = "delete successful"),
             @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "resource not found",
                     content = @Content)})
-    @DeleteMapping("/{id")
-    public ResponseEntity<Void> delete(
-            @Parameter(description = "ticket id", required = true) @PathVariable long id) {
-        this.service.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<GetTicketCommentDTO> deleteProjectById(@PathVariable long id) {
+        var entity = this.service.readById(id);
+        this.service.delete(entity);
+        GetTicketCommentDTO getProjectDTO = this.mapper.entityToGetDTO(entity);
+        return new ResponseEntity<>(getProjectDTO, HttpStatus.OK);
+    }
 
 }

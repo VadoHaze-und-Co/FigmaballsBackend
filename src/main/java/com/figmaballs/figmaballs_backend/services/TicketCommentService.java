@@ -76,7 +76,7 @@ public class TicketCommentService {
         return result;
     }
 
-    public void deleteById(long id) {
-        this.repository.deleteById(id);
+    public void delete(TicketCommentEntity entity) {
+        this.repository.delete(entity);
     }
 }
