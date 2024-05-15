@@ -8,6 +8,9 @@ import com.figmaballs.figmaballs_backend.services.TicketService;
 import com.figmaballs.figmaballs_backend.services.UserService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+
 @Service
 public class TicketCommentMapper {
     private TicketCommentService service;

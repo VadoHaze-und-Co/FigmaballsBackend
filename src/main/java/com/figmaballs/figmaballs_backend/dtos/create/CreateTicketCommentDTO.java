@@ -5,18 +5,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @Getter
 @Setter
 public class CreateTicketCommentDTO {
-    @NotBlank
+    @NotNull
     private Long ticketId;
-    @NotBlank
+    @NotNull
     private Long userId;
     @NotBlank
     private String comment;
-    @NotBlank
+    @NotNull
     private Long commentDate;
     private Boolean edited;
 }
