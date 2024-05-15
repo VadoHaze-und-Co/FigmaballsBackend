@@ -24,7 +24,7 @@ public class LogEntity {
         this.action = action;
         this.object = object;
         this.message = message;
-        this.user = user;
+        this.username = user;
         this.time = LocalDateTime.now();
     }
 
@@ -34,5 +34,5 @@ public class LogEntity {
 
     private String message;
 
-    private String user;
+    private String username;
 }
