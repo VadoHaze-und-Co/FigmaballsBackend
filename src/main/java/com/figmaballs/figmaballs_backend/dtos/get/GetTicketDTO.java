@@ -21,4 +21,5 @@ public class GetTicketDTO {
     private List<Long> categories;
     private long creationDate;
     private long finishDate;
+    private List<Long> comments;
 }

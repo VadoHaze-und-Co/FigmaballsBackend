@@ -1,6 +1,8 @@
 package com.figmaballs.figmaballs_backend.services;
 
 import com.figmaballs.figmaballs_backend.entities.SettingEntity;
+import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
+import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import com.figmaballs.figmaballs_backend.repos.UserRepository;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
 import com.figmaballs.figmaballs_backend.repos.SettingRepository;
@@ -13,11 +15,13 @@ import java.util.List;
 public class UserService {
     private final UserRepository repository;
     private final SettingRepository settingRepository;
+    private final TicketCommentRepository commentRepository;
 
-    public UserService(UserRepository repository, SettingRepository settingRepository) {
+    public UserService(UserRepository repository, SettingRepository settingRepository, TicketCommentRepository commentRepository) {
         this.repository = repository;
         this.settingRepository = settingRepository;
-        loadUsers();
+        this.commentRepository = commentRepository;
+        //loadUsers();
     }
 
     public void loadUsers() {
@@ -41,6 +45,21 @@ public class UserService {
             user.setCity(cities[i]);
             user.setUserGroupIds(groupIds[i]);
             user.setAdmin(isAdmins[i]);
+            user.setCommentedTo(new ArrayList<>());
+            if (i == 0 || i == 3) {
+                if (i == 0) {
+                    List<TicketCommentEntity> comments = new ArrayList<>();
+                    comments.add(this.commentRepository.getOne(2L));
+                    comments.add(this.commentRepository.getOne(4L));
+                    user.setCommentedTo(comments);
+                }
+                else {
+                    List<TicketCommentEntity> comments = new ArrayList<>();
+                    comments.add(this.commentRepository.getOne(1L));
+                    comments.add(this.commentRepository.getOne(3L));
+                    user.setCommentedTo(comments);
+                }
+            }
             this.repository.save(user);
         }
     }
