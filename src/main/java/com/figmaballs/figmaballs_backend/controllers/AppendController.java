@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController()
 @CrossOrigin(origins = "http://localhost:4200")
@@ -80,21 +81,24 @@ public class AppendController {
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @GetMapping("")
-    public ResponseEntity<List<AppendEntity>> getAll() {
-        return new ResponseEntity<>(new ArrayList<>(this.service
-                .readAll()), HttpStatus.OK);
+    public ResponseEntity<List<GetAppendDTO>> getAll() {
+        List<AppendEntity> appends = this.service.readAll();
+        return new ResponseEntity<>(appends.stream()
+                .map(this.mapper::entityToGetDto)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "delivers a ticket by ID")
+    @Operation(summary = "delivers a append by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "ticket by ID",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GetCategoryDTO.class))}),
+                            schema = @Schema(implementation = GetAppendDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @GetMapping("/{id}")
-    public ResponseEntity<AppendEntity> getById(
-            @Parameter(description = "ticket id", required = true) @PathVariable long id) {
-        return new ResponseEntity<>(this.service.readById(id), HttpStatus.OK);
+    public ResponseEntity<GetAppendDTO> getById(
+            @Parameter(description = "append id", required = true) @PathVariable long id) {
+        AppendEntity entity = this.service.readById(id);
+        return new ResponseEntity<>(this.mapper.entityToGetDto(entity), HttpStatus.OK);
     }
 }
