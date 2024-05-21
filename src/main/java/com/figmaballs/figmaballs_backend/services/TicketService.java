@@ -1,7 +1,9 @@
 package com.figmaballs.figmaballs_backend.services;
 
+import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
+import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import com.figmaballs.figmaballs_backend.repos.TicketRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import java.util.Random;
 public class TicketService {
 
     private final TicketRepository repository;
+    private final TicketCommentRepository commentRepository;
 
-    public TicketService(TicketRepository repository) {
+    public TicketService(TicketRepository repository, TicketCommentRepository commentRepository) {
         this.repository = repository;
-        loadTickets();
+        this.commentRepository = commentRepository;
+        //loadTickets();
     }
 
     private void loadTickets() {
@@ -33,13 +37,22 @@ public class TicketService {
             entity.setStatus(status[i]);
             entity.setPriority(priority[i]);
             entity.setCreationDate(creationDate[i]);
-            entity.setAssignments(new ArrayList<>());
+            //entity.setAssignments(new ArrayList<>());
             if (i == 1 || i == 3) {
                 entity.setAppendIds("1");
             } else {
                 entity.setAppendIds("");
             }
             entity.setCategoryIds(random.nextInt(20) + " " + random.nextInt(20));
+            entity.setComments(new ArrayList<>());
+            if (i == 1) {
+                List<TicketCommentEntity> comments = new ArrayList<>();
+                comments.add(this.commentRepository.getOne(1L));
+                comments.add(this.commentRepository.getOne(2L));
+                comments.add(this.commentRepository.getOne(3L));
+                comments.add(this.commentRepository.getOne(4L));
+                entity.setComments(comments);
+            }
             this.repository.save(entity);
         }
     }
@@ -65,5 +78,9 @@ public class TicketService {
 
     public TicketEntity readById(long id) {
         return this.repository.getOne(id);
+    }
+
+    public void deleteById(long id) {
+        this.repository.deleteById(id);
     }
 }

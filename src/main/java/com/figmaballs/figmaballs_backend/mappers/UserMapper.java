@@ -1,6 +1,7 @@
 package com.figmaballs.figmaballs_backend.mappers;
 
 import com.figmaballs.figmaballs_backend.dtos.get.GetUserGroupDTO;
+import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
 import com.figmaballs.figmaballs_backend.services.UserGroupService;
 import com.figmaballs.figmaballs_backend.services.UserService;
@@ -42,6 +43,10 @@ public class UserMapper extends Mapper {
     }
 
     public GetUserDTO entityToGetDto(UserEntity entity) {
+        List<Long> commentIds = new ArrayList<>();
+        for (TicketCommentEntity comment : entity.getCommentedTo()) {
+            commentIds.add(comment.getId());
+        }
         return new GetUserDTO(
                 entity.getId(),
                 entity.getUserName(),
@@ -52,7 +57,8 @@ public class UserMapper extends Mapper {
                 entity.getPostcode(),
                 entity.getCity(),
                 entity.isAdmin(),
-                stringToIds(entity.getUserGroupIds())
+                stringToIds(entity.getUserGroupIds()),
+                commentIds
                 /*entity.getTickets().stream().toList(),*/
                 /*new GetSettingDTO(
                         entity.getUserSetting().getSetting().getId(),

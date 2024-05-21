@@ -95,4 +95,22 @@ public class TicketController {
             @Parameter(description = "ticket id", required = true) @PathVariable long id) {
         return new ResponseEntity<>(this.mapper.entityToGetDto(this.service.readById(id)), HttpStatus.OK);
     }
+
+    @Operation(summary = "deletes a ticket by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "delete ticket by ID",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetTicketDTO.class))}),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content)})
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteById(
+            @Parameter(description = "ticket id", required = true) @PathVariable long id) {
+        try {
+            this.service.deleteById(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(id, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

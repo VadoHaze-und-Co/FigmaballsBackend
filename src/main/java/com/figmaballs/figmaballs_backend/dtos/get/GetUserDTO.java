@@ -20,6 +20,7 @@ public class GetUserDTO {
     private String city;
     private boolean admin;
     private List<Long> userGroups;
+    private List<Long> comments;
     //private List<TicketEntity> tickets;
     //private GetSettingDTO setting;
 

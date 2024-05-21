@@ -16,7 +16,7 @@ public class AppendMapper {
         String name = dto.getFileName();
         for (int i = name.length() - 1; i >= 0; i--) {
             if (name.charAt(i) == '.') {
-                entity.setFileName(name.substring(0, Math.max(i - 1, 0)));
+                entity.setFileName(name.substring(0, i));
                 entity.setFileType(name.substring(i + 1));
             }
         }
