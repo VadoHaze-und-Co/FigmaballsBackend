@@ -1,8 +1,11 @@
 package com.figmaballs.figmaballs_backend.services;
 
+import com.figmaballs.figmaballs_backend.config.PassEncryptionConfig;
+import com.figmaballs.figmaballs_backend.entities.LoginEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
+import com.figmaballs.figmaballs_backend.repos.LoginRepository;
 import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import com.figmaballs.figmaballs_backend.repos.TicketRepository;
 import com.figmaballs.figmaballs_backend.repos.UserRepository;
@@ -18,15 +21,24 @@ public class TemplateService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final TicketCommentRepository commentRepository;
+    private final LoginRepository loginRepository;
+    private final PassEncryptionConfig encryptionConfig = new PassEncryptionConfig();
 
-    public TemplateService(TicketRepository ticketRepository, UserRepository userRepository, TicketCommentRepository commentRepository) throws InterruptedException {
+    public TemplateService(
+            TicketRepository ticketRepository,
+            UserRepository userRepository,
+            TicketCommentRepository commentRepository,
+            LoginRepository loginRepository
+    ) throws InterruptedException {
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
+        this.loginRepository = loginRepository;
 
         loadTickets();
         loadUsers();
         loadComments();
+        loadLoginUsers();
     }
 
     public void loadTickets() {
@@ -115,6 +127,24 @@ public class TemplateService {
             commentEntity.setCommentDate(commentDates[i]);
             commentEntity.setEdited(false);
             this.commentRepository.save(commentEntity);
+        }
+    }
+
+    public void loadLoginUsers() {
+        long[] userIds = {1L,2L,3L,4L};
+        String[] passwords = {"Maxi.Musti11","Mari+Musti22","Abcd#efgh33","Reini/Zufi44"};
+        String[] saltValues = {encryptionConfig.getSaltvalue(30),encryptionConfig.getSaltvalue(30),encryptionConfig.getSaltvalue(30),encryptionConfig.getSaltvalue(30)};
+        long[] lastLogins = {1716317421125L,1716317422929L,1716317441925L,1716317410125L};
+
+        for (int i = 0; i < userIds.length; i++) {
+            LoginEntity entity = new LoginEntity();
+            entity.setId((long)i+1);
+            entity.setUser(this.userRepository.getOne(userIds[i]));
+            entity.setSaltValue(saltValues[i]);
+            entity.setLastLogin(lastLogins[i]);
+            entity.setPassword(encryptionConfig.generateSecurePassword(passwords[i],saltValues[i]));
+            entity.setSecuredPassword(true);
+            this.loginRepository.save(entity);
         }
     }
 }
