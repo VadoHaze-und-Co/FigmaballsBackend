@@ -34,7 +34,10 @@ public class UserEntity {
 
     private String city;
 
-    private String userGroupIds;
+    @Column(columnDefinition = "varchar(10485760)")
+    private String profilePicture;
+
+    private String qualificationIds;
 
     private boolean admin;
 
