@@ -25,12 +25,22 @@ public class LoginMapper extends Mapper {
         entity = entities.stream().filter(e -> Objects.equals(e.user.getUserName(), dto.getUsername())).findAny().orElse(null);
     }*/
 
-    public AccountDTO loginEntityToAccountDTO(LoginEntity entity) {
+    public AccountDTO loginEntityToAccountDTO(LoginEntity entity, boolean isPasswordCorrect) {
+        if (entity == null) {
+            return new AccountDTO(
+                    0L,
+                    0L,
+                    0L,
+                    false,
+                    isPasswordCorrect
+            );
+        }
         return new AccountDTO(
                 entity.getId(),
                 entity.getUser().getId(),
                 entity.getLastLogin(),
-                entity.getSecuredPassword()
+                entity.getSecuredPassword(),
+                isPasswordCorrect
         );
     }
 }

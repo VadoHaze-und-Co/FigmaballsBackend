@@ -35,6 +35,7 @@ public class TicketService {
         entityToUpdate.setFinishDate(newEntity.getFinishDate());
         entityToUpdate.setAppendIds(newEntity.getAppendIds());
         entityToUpdate.setCategoryIds(newEntity.getCategoryIds());
+        entityToUpdate.setAssignment(newEntity.getAssignment());
         return this.repository.save(entityToUpdate);
     }
 

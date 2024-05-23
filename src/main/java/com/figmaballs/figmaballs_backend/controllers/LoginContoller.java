@@ -53,12 +53,12 @@ public class LoginContoller {
     public ResponseEntity<AccountDTO> login(@RequestBody @Valid LoginDTO dto) {
         var entity = this.service.readAll().stream().filter(e -> e.user.getUserName().equals(dto.getUsername())).findAny().orElse(null);
         if (entity == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(this.mapper.loginEntityToAccountDTO(null, false), HttpStatus.NOT_FOUND);
         }
         if (encryptionConfig.verifyUserPassword(dto.getPassword(),entity.getPassword(), entity.getSaltValue())) {
-            return new ResponseEntity<>(this.mapper.loginEntityToAccountDTO(entity), HttpStatus.CREATED);
+            return new ResponseEntity<>(this.mapper.loginEntityToAccountDTO(entity, true), HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(this.mapper.loginEntityToAccountDTO(entity, false), HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -81,7 +81,7 @@ public class LoginContoller {
         entity.setSaltValue(saltValue);
         entity.setPassword(encryptionConfig.generateSecurePassword(dto.getPassword(), saltValue));
         entity = this.service.update(entity);
-        return new ResponseEntity<>(this.mapper.loginEntityToAccountDTO(entity), HttpStatus.OK);
+        return new ResponseEntity<>(this.mapper.loginEntityToAccountDTO(entity, true), HttpStatus.OK);
     }
 
 }

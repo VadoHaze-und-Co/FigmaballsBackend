@@ -13,4 +13,5 @@ public class AccountDTO {
     //private Integer role;
     private Long lastLogin;
     private Boolean sP;
+    private Boolean password;
 }
