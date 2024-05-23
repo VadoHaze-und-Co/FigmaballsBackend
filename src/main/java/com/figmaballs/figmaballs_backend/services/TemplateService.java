@@ -55,13 +55,17 @@ public class TemplateService {
             entity.setStatus(status[i]);
             entity.setPriority(priority[i]);
             entity.setCreationDate(creationDate[i]);
-            //entity.setAssignments(new ArrayList<>());
             if (i == 1 || i == 3) {
                 entity.setAppendIds("1");
             } else {
                 entity.setAppendIds("");
             }
             entity.setCategoryIds(random.nextInt(20) + " " + random.nextInt(20));
+            entity.setAssignment(0L);
+            if (i == 0)
+                entity.setAssignment(1L);
+            if (i == 3)
+                entity.setAssignment(3L);
             entity.setComments(new ArrayList<>());
 
             this.ticketRepository.save(entity);
@@ -91,20 +95,6 @@ public class TemplateService {
             user.setQualificationIds(qualifications[i]);
             user.setAdmin(isAdmins[i]);
             user.setCommentedTo(new ArrayList<>());
-            /*if (i == 0 || i == 3) {
-                if (i == 0) {
-                    List<TicketCommentEntity> comments = new ArrayList<>();
-                    comments.add(this.commentRepository.getOne(2L));
-                    comments.add(this.commentRepository.getOne(4L));
-                    user.setCommentedTo(comments);
-                }
-                else {
-                    List<TicketCommentEntity> comments = new ArrayList<>();
-                    comments.add(this.commentRepository.getOne(1L));
-                    comments.add(this.commentRepository.getOne(3L));
-                    user.setCommentedTo(comments);
-                }
-            }*/
             this.userRepository.save(user);
         }
     }

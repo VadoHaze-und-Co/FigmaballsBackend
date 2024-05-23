@@ -2,14 +2,11 @@ package com.figmaballs.figmaballs_backend.mappers;
 
 import com.figmaballs.figmaballs_backend.dtos.create.CreateTicketDTO;
 import com.figmaballs.figmaballs_backend.dtos.get.GetTicketDTO;
-import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.services.AppendService;
 import com.figmaballs.figmaballs_backend.services.CategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -34,26 +31,24 @@ public class TicketMapper extends Mapper {
         entity.setFinishDate(dto.getFinishDate());
         entity.setAppendIds(idsToString(dto.getAppends()));
         entity.setCategoryIds(idsToString(dto.getCategories()));
+        entity.setAssignment(dto.getAssignment());
 
         return entity;
     }
 
     public GetTicketDTO entityToGetDto(TicketEntity entity) {
-        List<Long> commentIds = new ArrayList<>();
-        for (TicketCommentEntity comment : entity.getComments()) {
-            commentIds.add(comment.getId());
-        }
+
         return new GetTicketDTO(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getStatus(),
                 entity.getPriority(),
-                stringToIds(entity.getAppendIds()),
-                stringToIds(entity.getCategoryIds()),
                 entity.getCreationDate(),
                 entity.getFinishDate(),
-                commentIds
+                stringToIds(entity.getAppendIds()),
+                stringToIds(entity.getCategoryIds()),
+                entity.getAssignment()
         );
     }
 }

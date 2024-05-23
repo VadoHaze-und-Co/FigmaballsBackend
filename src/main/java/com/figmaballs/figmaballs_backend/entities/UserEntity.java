@@ -41,8 +41,8 @@ public class UserEntity {
 
     private boolean admin;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AssignmentEntity> assignedTo = new ArrayList<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private AssignmentEntity assignment;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TicketCommentEntity> commentedTo = new ArrayList<>();
