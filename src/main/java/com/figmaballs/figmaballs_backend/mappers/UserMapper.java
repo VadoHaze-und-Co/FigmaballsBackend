@@ -1,7 +1,10 @@
 package com.figmaballs.figmaballs_backend.mappers;
 
 import com.figmaballs.figmaballs_backend.dtos.get.GetUserGroupDTO;
+import com.figmaballs.figmaballs_backend.entities.CategoryEntity;
+import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
+import com.figmaballs.figmaballs_backend.services.CategoryService;
 import com.figmaballs.figmaballs_backend.services.UserGroupService;
 import com.figmaballs.figmaballs_backend.services.UserService;
 import com.figmaballs.figmaballs_backend.dtos.create.CreateUserDTO;
@@ -18,11 +21,11 @@ import java.util.Set;
 public class UserMapper extends Mapper {
 
     private final UserService service;
-    private final UserGroupService userGroupService;
+    private final CategoryService categoryService;
 
-    public UserMapper(UserService service, UserGroupService userGroupService) {
+    public UserMapper(UserService service, CategoryService categoryService) {
         this.service = service;
-        this.userGroupService = userGroupService;
+        this.categoryService = categoryService;
     }
 
     public UserEntity userCreateDtoToEntity(CreateUserDTO dto) {
@@ -35,13 +38,17 @@ public class UserMapper extends Mapper {
         entity.setAddress(dto.getAddress());
         entity.setPostcode(dto.getPostcode());
         entity.setCity(dto.getCity());
-        entity.setUserGroupIds(idsToString(dto.getUserGroups()));
+        entity.setQualificationIds(idsToString(dto.getQualifikation()));
         entity.setAdmin(dto.isAdmin());
 
         return entity;
     }
 
     public GetUserDTO entityToGetDto(UserEntity entity) {
+        List<Long> commentIds = new ArrayList<>();
+        for (TicketCommentEntity comment : entity.getCommentedTo()) {
+            commentIds.add(comment.getId());
+        }
         return new GetUserDTO(
                 entity.getId(),
                 entity.getUserName(),
@@ -51,8 +58,11 @@ public class UserMapper extends Mapper {
                 entity.getAddress(),
                 entity.getPostcode(),
                 entity.getCity(),
-                entity.isAdmin(),
-                stringToIds(entity.getUserGroupIds())
+                entity.getProfilePicture(),
+                stringToIds(entity.getQualificationIds()),
+                entity.isAdmin()
+                //stringToIds(entity.getUserGroupIds()),
+                //commentIds
                 /*entity.getTickets().stream().toList(),*/
                 /*new GetSettingDTO(
                         entity.getUserSetting().getSetting().getId(),

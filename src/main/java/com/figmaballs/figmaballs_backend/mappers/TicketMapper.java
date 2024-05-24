@@ -7,7 +7,7 @@ import com.figmaballs.figmaballs_backend.services.AppendService;
 import com.figmaballs.figmaballs_backend.services.CategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class TicketMapper extends Mapper {
@@ -31,21 +31,24 @@ public class TicketMapper extends Mapper {
         entity.setFinishDate(dto.getFinishDate());
         entity.setAppendIds(idsToString(dto.getAppends()));
         entity.setCategoryIds(idsToString(dto.getCategories()));
+        entity.setAssignment(dto.getAssignment());
 
         return entity;
     }
 
     public GetTicketDTO entityToGetDto(TicketEntity entity) {
+
         return new GetTicketDTO(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getStatus(),
                 entity.getPriority(),
+                entity.getCreationDate(),
+                entity.getFinishDate(),
                 stringToIds(entity.getAppendIds()),
                 stringToIds(entity.getCategoryIds()),
-                entity.getCreationDate(),
-                entity.getFinishDate()
+                entity.getAssignment()
         );
     }
 }

@@ -77,7 +77,7 @@ public class AppendController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "list of append",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = GetCategoryDTO.class))}),
+                            schema = @Schema(implementation = GetAppendDTO.class))}),
             @ApiResponse(responseCode = "401", description = "not authorized",
                     content = @Content)})
     @GetMapping("")

@@ -1,6 +1,5 @@
 package com.figmaballs.figmaballs_backend.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +10,16 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "assignments")
-public class AssignmentEntity {
+@Table(name = "login")
+public class LoginEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    public TicketEntity ticket;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @OneToOne
     public UserEntity user;
+    public Long LastLogin;
+    public String password;
+    public Boolean securedPassword;
+    public String saltValue;
 }

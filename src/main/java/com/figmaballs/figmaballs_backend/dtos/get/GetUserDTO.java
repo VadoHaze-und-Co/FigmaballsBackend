@@ -18,9 +18,8 @@ public class GetUserDTO {
     private String address;
     private String postcode;
     private String city;
+    private String profilPicture;
+    private List<Long> qualifikation;
     private boolean admin;
-    private List<Long> userGroups;
-    //private List<TicketEntity> tickets;
-    //private GetSettingDTO setting;
 
 }

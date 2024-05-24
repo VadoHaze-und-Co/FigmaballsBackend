@@ -52,14 +52,6 @@ public class UserController {
         if (groupEntities.stream().findAny().isEmpty()) {
             return new ResponseEntity<>(new ErrorDTO("ERROR " + HttpStatus.UNPROCESSABLE_ENTITY.value(),"there is no user groups that exist, please create it first"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        for (var groupId : dto.getUserGroups()) {
-            if (groupEntities.stream().noneMatch(e -> e.getId() == groupId)) {
-                return new ResponseEntity<>(
-                    new ErrorDTO("ERROR "+HttpStatus.EXPECTATION_FAILED.value(), "group with id '"+groupId+"' cannot be found"),
-                    HttpStatus.EXPECTATION_FAILED
-                );
-            }
-        }
         UserEntity userEntity = this.mapper.userCreateDtoToEntity(dto);
         userEntity = this.service.create(userEntity);
         return new ResponseEntity<>(this.mapper.entityToGetDto(userEntity), HttpStatus.CREATED);

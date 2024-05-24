@@ -23,6 +23,7 @@ public class CreateTicketDTO {
     private int priority;
     private long creationDate;
     private long finishDate;
-    private List<Long> categories;
     private List<Long> appends;
+    private List<Long> categories;
+    private long assignment;
 }

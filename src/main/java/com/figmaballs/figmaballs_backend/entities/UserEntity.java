@@ -28,16 +28,22 @@ public class UserEntity {
 
     private String emailAddress;
 
-    private String Address;
+    private String address;
 
     private String postcode;
 
     private String city;
 
-    private String userGroupIds;
+    @Column(columnDefinition = "varchar(10485760)")
+    private String profilePicture;
+
+    private String qualificationIds;
 
     private boolean admin;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private AssignmentEntity assignment;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AssignmentEntity> assignedTo = new ArrayList<>();
+    private List<TicketCommentEntity> commentedTo = new ArrayList<>();
 }

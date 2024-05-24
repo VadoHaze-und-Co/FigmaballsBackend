@@ -26,8 +26,8 @@ public class CreateUserDTO {
     private String postcode;
     @NotBlank(message = "city must not be blank")
     private String city;
+    private String profilPicture;
+    private List<Long> qualifikation;
     private boolean admin;
-    @NotEmpty(message = "al least one existed user group should be")
-    private List<Long> userGroups;
     //private CreateSettingDTO setting;
 }
