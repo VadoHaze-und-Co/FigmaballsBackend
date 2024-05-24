@@ -73,6 +73,7 @@ public class UserController {
             @RequestBody @Valid CreateUserDTO createUserDTO) {
         UserEntity updateEntity = mapper.userCreateDtoToEntity(createUserDTO);
         updateEntity.setId(id);
+
         updateEntity = this.service.update(updateEntity);
         return new ResponseEntity<>(this.mapper.entityToGetDto(updateEntity), HttpStatus.OK);
     }

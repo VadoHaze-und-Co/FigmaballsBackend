@@ -26,8 +26,10 @@ public class CreateUserDTO {
     private String postcode;
     @NotBlank(message = "city must not be blank")
     private String city;
+    @Getter
     private String profilPicture;
     private List<Long> qualifikation;
     private boolean admin;
+
     //private CreateSettingDTO setting;
 }
