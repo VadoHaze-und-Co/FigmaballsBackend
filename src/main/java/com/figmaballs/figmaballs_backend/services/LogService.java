@@ -18,14 +18,6 @@ public class LogService {
     }
 
     public void loadTestLogs() {
-        log("Ticket", "Create", "Max Mustermann", "bla bla");
-        log("User", "Create", "Max Mustermann", "bla bla");
-        log("Ticket", "Change", "Mister Man", "bla bla");
-        log("User", "Change", "David Haller", "bla bla");
-        log("Ticket", "Delete", "Till Staude", "bla bla");
-        log("Ticket", "Create", "Max Simon", "bla bla");
-        log("Ticket", "Change", "Barney Stinson", "bla bla");
-        log("Ticket", "Delete", "Mattis Matthies", "bla bla");
     }
 
     public void log(String object, String action, String user, String message) {
@@ -33,7 +25,7 @@ public class LogService {
     }
 
     public void log(CreateLogDTO dto) {
-        log(dto.getObject(), dto.getAction(), dto.getMessage(), dto.getUser());
+        log(dto.getObject(), dto.getAction(), dto.getUser(), dto.getMessage());
     }
 
     public List<LogEntity> logs() {
