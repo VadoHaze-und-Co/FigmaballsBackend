@@ -4,6 +4,7 @@ import com.figmaballs.figmaballs_backend.dtos.ErrorDTO;
 import com.figmaballs.figmaballs_backend.dtos.create.CreateUserDTO;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
 import com.figmaballs.figmaballs_backend.mappers.UserMapper;
+import com.figmaballs.figmaballs_backend.services.CategoryService;
 import com.figmaballs.figmaballs_backend.services.UserGroupService;
 import com.figmaballs.figmaballs_backend.services.UserService;
 import com.figmaballs.figmaballs_backend.dtos.get.GetUserDTO;
@@ -27,12 +28,12 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService service;
-    private final UserGroupService userGroupService;
+    private final CategoryService categoryService;
     private final UserMapper mapper;
 
-    public UserController(UserService service, UserMapper mapper, UserGroupService userGroupService) {
+    public UserController(UserService service, UserMapper mapper, CategoryService categoryService) {
         this.service = service;
-        this.userGroupService = userGroupService;
+        this.categoryService = categoryService;
         this.mapper = mapper;
     }
 
@@ -48,8 +49,8 @@ public class UserController {
             @ApiResponse(responseCode = "422", description = "no user group exists")})
     @PostMapping("")
     public ResponseEntity<Object> create(@RequestBody @Valid CreateUserDTO dto) {
-        var groupEntities = this.userGroupService.readAll();
-        if (groupEntities.stream().findAny().isEmpty()) {
+        var categoryEntities = this.categoryService.readAll();
+        if (categoryEntities.stream().findAny().isEmpty()) {
             return new ResponseEntity<>(new ErrorDTO("ERROR " + HttpStatus.UNPROCESSABLE_ENTITY.value(),"there is no user groups that exist, please create it first"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
         UserEntity userEntity = this.mapper.userCreateDtoToEntity(dto);
@@ -72,6 +73,7 @@ public class UserController {
             @RequestBody @Valid CreateUserDTO createUserDTO) {
         UserEntity updateEntity = mapper.userCreateDtoToEntity(createUserDTO);
         updateEntity.setId(id);
+
         updateEntity = this.service.update(updateEntity);
         return new ResponseEntity<>(this.mapper.entityToGetDto(updateEntity), HttpStatus.OK);
     }

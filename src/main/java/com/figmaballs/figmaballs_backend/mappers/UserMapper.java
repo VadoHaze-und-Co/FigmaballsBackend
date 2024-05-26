@@ -38,6 +38,7 @@ public class UserMapper extends Mapper {
         entity.setAddress(dto.getAddress());
         entity.setPostcode(dto.getPostcode());
         entity.setCity(dto.getCity());
+        entity.setProfilePicture(dto.getProfilPicture());
         entity.setQualificationIds(idsToString(dto.getQualifikation()));
         entity.setAdmin(dto.isAdmin());
 

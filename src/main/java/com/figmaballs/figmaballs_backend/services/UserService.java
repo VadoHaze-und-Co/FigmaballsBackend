@@ -33,6 +33,11 @@ public class UserService {
         entityToUpdate.setFirstName(newEntity.getFirstName());
         entityToUpdate.setLastName(newEntity.getLastName());
         entityToUpdate.setEmailAddress(newEntity.getEmailAddress());
+        entityToUpdate.setAddress(newEntity.getAddress());
+        entityToUpdate.setCity(newEntity.getCity());
+        entityToUpdate.setQualificationIds(newEntity.getQualificationIds());
+        entityToUpdate.setProfilePicture(newEntity.getProfilePicture());
+        entityToUpdate.setUserName(newEntity.getUserName());
         return this.repository.save(entityToUpdate);
     }
 
