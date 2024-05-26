@@ -1,15 +1,11 @@
 package com.figmaballs.figmaballs_backend.services;
 
-import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketEntity;
-import com.figmaballs.figmaballs_backend.entities.UserEntity;
 import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import com.figmaballs.figmaballs_backend.repos.TicketRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class TicketService {
@@ -39,8 +35,24 @@ public class TicketService {
         return this.repository.save(entityToUpdate);
     }
 
-    public List<TicketEntity> readAll() {
-        return this.repository.findAll();
+    public List<TicketEntity> readAll(boolean auto) {
+        var listOfTickets = this.repository.findAll();
+        if (auto) {
+            listOfTickets.sort(new Comparator<>() {
+                @Override
+                public int compare(TicketEntity t1, TicketEntity t2) {
+                    return Long.compare(t1.getCreationDate(), t2.getCreationDate());
+                }
+            });
+        } else {
+            listOfTickets.sort(new Comparator<>() {
+                @Override
+                public int compare(TicketEntity t1, TicketEntity t2) {
+                    return Long.compare(t1.getId(), t2.getId());
+                }
+            });
+        }
+        return listOfTickets;
     }
 
     public TicketEntity readById(long id) {

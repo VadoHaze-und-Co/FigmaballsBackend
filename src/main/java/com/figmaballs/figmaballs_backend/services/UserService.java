@@ -2,6 +2,7 @@ package com.figmaballs.figmaballs_backend.services;
 
 import com.figmaballs.figmaballs_backend.entities.SettingEntity;
 import com.figmaballs.figmaballs_backend.entities.TicketCommentEntity;
+import com.figmaballs.figmaballs_backend.entities.TicketEntity;
 import com.figmaballs.figmaballs_backend.repos.TicketCommentRepository;
 import com.figmaballs.figmaballs_backend.repos.UserRepository;
 import com.figmaballs.figmaballs_backend.entities.UserEntity;
@@ -9,6 +10,7 @@ import com.figmaballs.figmaballs_backend.repos.SettingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,7 +44,14 @@ public class UserService {
     }
 
     public List<UserEntity> readAll() {
-        return this.repository.findAll();
+        var listOfUsers = this.repository.findAll();
+        listOfUsers.sort(new Comparator<>() {
+            @Override
+            public int compare(UserEntity o1, UserEntity o2) {
+                return Long.compare(o1.getId(), o2.getId());
+            }
+        });
+        return listOfUsers;
     }
 
     public UserEntity readById(long id) {

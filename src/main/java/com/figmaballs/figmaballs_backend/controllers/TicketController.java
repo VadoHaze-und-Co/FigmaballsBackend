@@ -67,6 +67,22 @@ public class TicketController {
         return new ResponseEntity<>(this.mapper.entityToGetDto(updateEntity), HttpStatus.OK);
     }
 
+    @Operation(summary = "delivers a list of tickets with automatic escalation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "list of tickets",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetTicketDTO.class))}),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content)})
+    @GetMapping("/auto")
+    public ResponseEntity<List<GetTicketDTO>> getAllAutoEscalation() {
+        List<TicketEntity> l = this.service.readAll(true);
+        return new ResponseEntity<>(l
+                .stream()
+                .map(this.mapper::entityToGetDto)
+                .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
     @Operation(summary = "delivers a list of tickets")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "list of tickets",
@@ -76,7 +92,7 @@ public class TicketController {
                     content = @Content)})
     @GetMapping("")
     public ResponseEntity<List<GetTicketDTO>> getAll() {
-        List<TicketEntity> l = this.service.readAll();
+        List<TicketEntity> l = this.service.readAll(false);
         return new ResponseEntity<>(l
                 .stream()
                 .map(this.mapper::entityToGetDto)
