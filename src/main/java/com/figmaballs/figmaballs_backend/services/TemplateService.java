@@ -61,6 +61,9 @@ public class TemplateService {
                 entity.setAppendIds("");
             }
             entity.setCategoryIds(random.nextInt(20) + " " + random.nextInt(20));
+            if (i == 3) {
+                entity.setFinishDate(1714434536580L);
+            }
             entity.setAssignment(0L);
             if (i == 0)
                 entity.setAssignment(1L);
