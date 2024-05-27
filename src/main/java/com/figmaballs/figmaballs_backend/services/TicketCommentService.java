@@ -6,6 +6,7 @@ import com.figmaballs.figmaballs_backend.repos.TicketRepository;
 import com.figmaballs.figmaballs_backend.repos.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -57,7 +58,14 @@ public class TicketCommentService {
     }
 
     public List<TicketCommentEntity> readAll() {
-        return this.repository.findAll();
+        var listOfComments = this.repository.findAll();
+        listOfComments.sort(new Comparator<TicketCommentEntity>() {
+            @Override
+            public int compare(TicketCommentEntity o1, TicketCommentEntity o2) {
+                return Long.compare(o2.getId(), o1.getId());
+            }
+        });
+        return listOfComments;
     }
 
     public TicketCommentEntity readById(long id) {

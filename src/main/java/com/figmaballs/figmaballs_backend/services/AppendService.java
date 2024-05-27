@@ -2,10 +2,12 @@ package com.figmaballs.figmaballs_backend.services;
 
 import com.figmaballs.figmaballs_backend.entities.AppendEntity;
 import com.figmaballs.figmaballs_backend.entities.CategoryEntity;
+import com.figmaballs.figmaballs_backend.entities.UserEntity;
 import com.figmaballs.figmaballs_backend.repos.AppendRepository;
 import com.figmaballs.figmaballs_backend.repos.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -40,7 +42,14 @@ public class AppendService {
     }
 
     public List<AppendEntity> readAll() {
-        return this.repository.findAll();
+        var listOfAppends = this.repository.findAll();
+        listOfAppends.sort(new Comparator<AppendEntity>() {
+            @Override
+            public int compare(AppendEntity o1, AppendEntity o2) {
+                return Long.compare(o1.getId(), o2.getId());
+            }
+        });
+        return listOfAppends;
     }
 
     public AppendEntity readById(long id) {
