@@ -10,6 +10,7 @@ import com.figmaballs.figmaballs_backend.entities.LogEntity;
 import com.figmaballs.figmaballs_backend.mappers.AppendMapper;
 import com.figmaballs.figmaballs_backend.services.AppendService;
 import com.figmaballs.figmaballs_backend.services.LogService;
+import io.swagger.models.auth.In;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -74,5 +75,17 @@ public class LogController {
             finalLogs.add(l);
         }
         return new ResponseEntity<>(finalLogs, HttpStatus.OK);
+    }
+
+    @Operation(summary = "delivers a list of append")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "list of append",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetCategoryDTO.class))}),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content)})
+    @GetMapping("/size")
+    public ResponseEntity<Integer> getSize() {
+        return new ResponseEntity<>(this.service.logs().size(), HttpStatus.OK);
     }
 }
